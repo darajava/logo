@@ -1,0 +1,23 @@
+.container {
+  background-color: var(--secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000000000000000;
+  animation: fade-out 2s;
+  flex-direction: column;opacity: 1;
+}
+
+@keyframes fade-out {
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

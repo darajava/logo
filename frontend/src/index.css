@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /*background-image: url('/login.jpg');*/
+ /* background-size: cover;
+  background-position: center;
+  background-attachment: fixed;*/
+
+  color: var(--text);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.content {
+  position: relative;
+  /*top: 58px;*/
+}
+
+.debug {width: 100%; word-break: break-all;
+  font-family: courier;
+  white-space: pre-wrap;
+}

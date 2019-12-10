@@ -1,0 +1,70 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### Cordova ###
+frontend/cordova/platforms/android/app/build
+frontend/cordova/www
+frontend/cordova/platforms/android/.gradle
+frontend/cordova/platforms/android/build
+frontend/cordova/platforms/android/assets/www
+frontend/cordova/platforms/android/local.properties
+frontend/cordova/platforms/android/CordovaLib/build
+frontend/cordova/platforms/android/CordovaLib/gen
+frontend/cordova/platforms/android/CordovaLib/local.properties
+frontend/cordova/platforms/android/app/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+**/node_modules
+**/.pnp
+.pnp.js
+
+# testing
+**/coverage
+
+# production
+**/build
+
+# misc
+**/.DS_Store
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+**/package-lock.json

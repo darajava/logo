@@ -1,0 +1,64 @@
+.input {
+  text-align: inherit;
+  background-color: var(--input-background);
+
+  border: 0;
+
+  font-size: 18px;
+  font-weight: bold;
+  outline: 0;
+  font-family: inherit;
+  width: 100%;
+  padding: 10px 7px;
+  border: 1px solid #efefef;
+  transition: all 0.45s ease-out;
+  font-family: inherit;
+}
+
+
+.input:focus {
+  background-color: rgb(255, 255, 255);
+}
+
+.input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.input.dark {
+  border: 0;
+  background-color: rgba(100, 100, 100, 0.2);
+}
+
+.input.dark:focus {
+  background-color: rgba(100, 100, 100, 0.3);
+}
+
+.input.dark::placeholder {
+  color: rgba(200, 200, 200, 0.5);
+  color: #888;
+}
+
+.input.error-field {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+/* if you update styles here, also update in Button */
+.error, .info, .warning {
+  text-align: right;
+  font-size: 14px;
+  padding: 3px 0;
+  position: absolute;
+}
+
+.error {
+  font-weight: bold;
+  color: var(--error);
+}
+
+.info {
+  color: var(--success);
+}
+
+.warning {
+  color: var(--warning);
+}

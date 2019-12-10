@@ -1,0 +1,52 @@
+.button {
+  /*height: 40px;*/
+  padding: 10px 0px;
+  width: 100%;
+  font-size: 18px;
+  outline: 0;
+  background-color: var(--main);
+  border: 0;
+  opacity: 0.9;
+  font-weight: bold;
+  color: white;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+}
+
+
+.button:hover {
+  opacity: 1;
+}
+
+.button:active {
+}
+
+.button.secondary {
+  background-color: var(--secondary);
+  color: inherit;
+}
+
+/* if you update styles here, also update in Input */
+.error, .info, .warning {
+  text-align: right;
+  font-size: 14px;
+  padding: 3px 0;
+  position: absolute;
+}
+
+.error {
+  font-weight: bold;
+  color: var(--error);
+}
+
+.info {
+  color: var(--success);
+}
+
+.warning {
+  color: var(--warning);
+}
+

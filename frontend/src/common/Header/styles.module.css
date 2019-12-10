@@ -1,0 +1,43 @@
+.block, .fixed {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom: 1px solid #b7b7b7;
+  color: white;
+  background-color: var(--main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.block {
+
+}
+
+.first {
+  margin-right: auto;
+  width: 50px;
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  right: 8px;
+}
+.last {
+  margin-left: auto;
+  width: 50px;
+  visibility: hidden;
+}
+.middle {
+
+}
+
+.up {
+  color: var(--secondary);
+}
