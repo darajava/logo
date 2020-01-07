@@ -8,6 +8,7 @@ function Loading(props) {
 
   const [show, setShow] = useState(props.noDelay);
 
+  // Don't show the loader immediately in case the operation is < 300ms
   useEffect(() => {
     setTimeout(() => {
       setShow(true);

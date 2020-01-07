@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { FaInstagram, FaVenus, FaMars, FaEnvelope, FaRunning } from 'react-icons/fa';
 
 import { instance, parseJwt } from '../../constants';
 import nophoto from '../../images/nophoto.png';
@@ -13,6 +12,8 @@ import Loading from '../../common/Loading/Loading';
 
 function Profile ({match}) {
 
+  console.log(nophoto)
+
   useEffect(() => {
     setLoading(true);
     setError();
@@ -21,13 +22,11 @@ function Profile ({match}) {
     if (match && match.params && match.params.username) {
       username = match.params.username;
     } else {
-      username = parseJwt(localStorage.getItem('token')).sub;
+      username = parseJwt(localStorage.getItem('token')).username;
     }
     
-    instance().get(`/profile/${username}`).then((res) => {
-      setCompetitor(res.data.competitorsResource);
-      setCompetitorStats(res.data.profileScores);
-      setWorkouts(res.data.profileScores.scores);
+    instance().get(`/api/profile/${username}`).then((res) => {
+      setCompetitor(res.data);
       setLoading(false);
     }).catch(() => {
       setLoading(false);
@@ -57,54 +56,14 @@ function Profile ({match}) {
   return (
     <div styleName="container">
       <div styleName='header'>
-        <img styleName='image' ref={img} src={competitor.image} onError={() => img.current.src = nophoto}></img>
+        <img styleName='image' ref={img} src={competitor.image || "whack"} onError={() => img.current.src = nophoto}></img>
         <div styleName='user-info'>
           <div styleName="username">
             {competitor.username}
           </div>
-          <div styleName="age">
-            {competitor.age} years old
-          </div>
-          {competitor.instagramLink && 
-            <div styleName="ig">
-              <FaInstagram styleName="icon" /> 
-              <a target="_blank" href={'https://instagram.com/' + competitor.instagramLink}>
-                {competitor.instagramLink.replace('https://www.instagram.com/', '').replace('/', '')}
-              </a>
-            </div>
-          }
-          <div>
-            {!competitor.male && <FaVenus styleName="icon female" />}
-            {competitor.male && <FaMars styleName="icon male" />}
-            {competitor.male ? 'Male' : 'Female'}
-          </div>
-          {/*<div>
-            <FaRunning styleName='icon' />
-            {competitor.gym}
-          </div>*/}
         </div>
       </div>
-      {competitorStats.averagePosition !== 'NaN' &&
-        <div styleName='stats'>
-          <div>
-            Completed challenges: <b>{competitorStats.completedChallenges}</b>
-          </div>
-          <div>
-            Average position: <b>#{competitorStats.averagePosition.toFixed(1)}</b>
-          </div>
-          <div>
-            Highest position: <b>#{competitorStats.bestPosition}</b>
-          </div>
-        </div>
-      }
 
-      <div styleName='history'>
-        <div styleName="history-header">{competitor.username}'s workouts:</div>
-        {!workouts.length && <div styleName="stats">
-          This competitor hasn't submitted any scores yet...
-        </div>}
-
-      </div>
 
     </div>
   );

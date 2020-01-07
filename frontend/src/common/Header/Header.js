@@ -7,14 +7,13 @@ import styles from './styles.module.css';
 
 const Login = (props) => {
 
+  // Disable header on these routes.
   if (
-    !props.header
-    || props.header === '/login'
-    || props.header === '/register'
-    || props.header === '/register-confirm'
+    !props.route
+    || props.route === '/login'
+    || props.route === '/register'
+    || props.route === '/register-confirm'
   ) return;
-
-    
 
   return (
     <div>

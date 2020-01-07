@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+}
+
+.error, .info, .warning {
+  text-align: left;
+  font-size: 12px;
+  padding: 1px 0;
+  font-weight: lighter;
+  position: absolute;
+  width: 100%;
+}
+
+.error {
+  color: var(--error);
+}
+
+.info {
+  color: var(--success);
+}
+
+.warning {
+  color: var(--warning);
+}
+
+.center {
+  text-align: center;
+}

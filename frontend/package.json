@@ -19,9 +19,9 @@
     "react-router-dom": "^5.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "bash -ac 'source .env.staging; react-scripts start'",
+    "start:prod": "bash -ac 'source .env.production; react-scripts start'",
+    "build": "bash -ac 'source .env.production; react-scripts start'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

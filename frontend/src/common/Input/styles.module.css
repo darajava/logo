@@ -4,7 +4,7 @@
 
   border: 0;
 
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   outline: 0;
   font-family: inherit;
@@ -21,7 +21,8 @@
 }
 
 .input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.2);
+  font-weight: normal;
 }
 
 .input.dark {
@@ -40,25 +41,4 @@
 
 .input.error-field {
   background-color: rgba(255, 0, 0, 0.2);
-}
-
-/* if you update styles here, also update in Button */
-.error, .info, .warning {
-  text-align: right;
-  font-size: 14px;
-  padding: 3px 0;
-  position: absolute;
-}
-
-.error {
-  font-weight: bold;
-  color: var(--error);
-}
-
-.info {
-  color: var(--success);
-}
-
-.warning {
-  color: var(--warning);
 }

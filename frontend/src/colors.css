@@ -1,7 +1,8 @@
 :root {
   --main: #41abf6;
-  --secondary: #ebf7ff;
+  --secondary: #c1e6ff;
   --error: #ff3333;
+  --light: #f9fcff;
   --success: green;
   --warning: orange;
   --text: #333;

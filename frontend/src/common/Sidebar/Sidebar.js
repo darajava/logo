@@ -9,22 +9,12 @@ import nophoto from '../../images/nophoto.png';
 
 function Sidebar (props) {
   const [closing, setClosing] = useState(false);
-  const [competitorStats, setCompetitorStats] = useState(false);
-  const [competitor, setCompetitor] = useState(false);
+  const [user, setUser] = useState(false);
 
   const items = [
     {
       link: '/',
-      label: "Today's Workout",
-    },
-    {
-      link: '/leaderboard',
-      label: "Leaderboard",
-    },
-    {
-      link: '/submit',
-      label: "Submit Workout",
-      bold: true,
+      label: "Home",
     },
     {
       link: '/login',
@@ -37,14 +27,14 @@ function Sidebar (props) {
     const parsed = parseJwt(localStorage.getItem('token'));
     if (!parsed) return;
 
-    const username = parsed.sub;
-
+    const username = parsed.username;
+    console.log(parsed)
     
-    instance().get(`/profile/${username}`).then((res) => {
-      setCompetitor(res.data.competitorsResource);
-      localStorage.setItem('competitor', JSON.stringify(res.data.competitorsResource));
-      setCompetitorStats(res.data.profileScores);
+    instance().get(`/api/profile/${username}`).then((res) => {
+      console.log(res);
+      setUser(res.data);
     }).catch(() => {
+      // :)
     })
   }, [localStorage.getItem('token')]);
 
@@ -65,12 +55,9 @@ function Sidebar (props) {
 
           <Link to="/profile" onClick={closeMenu} >
             <div styleName="profile-holder">
-              <img styleName='image' ref={img} src={competitor.image} onError={() => img.current.src = nophoto}></img>
+              <img styleName='image' ref={img} src={user.image || "Whack"} onError={() => img.current.src = nophoto}></img>
               <div styleName="username">
-                &nbsp;{competitor.username}&nbsp;
-              </div>
-              <div styleName="age">
-                &nbsp;{competitor.age} years old&nbsp;
+                &nbsp;{user.username}&nbsp;
               </div>
             </div>
           </Link>

@@ -10,6 +10,8 @@ import Logo from '../../common/Logo/Logo';
 import Loading from '../../common/Loading/Loading';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import { ErrorText } from '../../common/Text/Text';
+
 import jwt_decode from 'jwt-decode';
 
 var querystring = require('querystring');
@@ -28,8 +30,9 @@ const Login = ({history}) => {
   const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  localStorage.removeItem('token');
 
+  // We remove the token when user hits the login page, to log them out.
+  localStorage.removeItem('token');
 
   let login = () => {
     setError('');
@@ -46,15 +49,16 @@ const Login = ({history}) => {
       return;
     }
 
+    let payload = { password };
+    if (/(.+)@(.+){2,}\.(.+){2,}/.test(username)) {
+      payload.email = username;
+    } else {
+      payload.username = username;
+    }
+
     setLoading(true);
-    instance.post('api/authenticate', querystring.stringify({
-        username,
-        password,
-    })).then((res) => {
-      localStorage.setItem('token', res.data);
-      localStorage.setItem('group', jwt_decode(res.data).rol.find(function(role) {
-        return role.startsWith('GROUP_');
-      }).substring('GROUP_'.length));
+    instance.post('api/authenticate', payload).then((res) => {
+      localStorage.setItem('token', res.data.token);
 
       history.push('/');
     }).catch(function (error) {
@@ -71,37 +75,34 @@ const Login = ({history}) => {
 
   return (
     <div styleName="container">
+      {loading && <Loading/>}
+      
       <div styleName="content">
         <Logo/>
+        <div styleName="inputs">
+          <Input
+            placeholder="Username or Email"
+            value={username}
+            onChange={setUsername}
+            error={usernameError}
+          />
+          <Input
+            type="Password"
+            onChange={setPassword}
+            value={password}
+            placeholder="Password"
+            error={passwordError}
+          />
+        </div>
 
-        {loading && <Loading/>}
+        <div styleName="error-text">
+          <ErrorText center>{error}</ErrorText>
+        </div>
 
-          <span styleName="input-holder">
-            <Input
-              placeholder="Username or Email"
-              value={username}
-              onChange={setUsername}
-              error={usernameError}
-            />
-          </span>
-          <span styleName="input-holder">
-            <Input
-              type="Password"
-              onChange={setPassword}
-              value={password}
-              placeholder="Password"
-              error={passwordError}
-            />
-          </span>
-
-          <div styleName="error">{error}</div>
-
-          <span styleName="button-holder">
-            <Button onClick={login} label="Sign in"/>
-          </span>
-          <span styleName="button-holder">
-            <Button secondary onClick={() => history.push('/register')} label="Sign up"/>
-          </span>
+        <div styleName="buttons">
+          <Button onClick={login} label="Sign in"/>
+          <Button secondary onClick={() => history.push('/register')} label="Sign up"/>
+        </div>
       </div>
     </div>
   );
