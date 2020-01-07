@@ -5,20 +5,19 @@ import { FaBars } from 'react-icons/fa';
 import styles from './styles.module.css';
 
 
-const Login = (props) => {
+const Header = ({route, setMenuOpen}) => {
 
   // Disable header on these routes.
   if (
-    !props.route
-    || props.route === '/login'
-    || props.route === '/register'
-    || props.route === '/register-confirm'
+    !route
+    || route === '/login'
+    || route === '/register'
   ) return;
 
   return (
     <div>
       <div styleName="fixed">
-        <div className={styles.first} onClick={() => props.setMenuOpen(true)} >
+        <div className={styles.first} onClick={() => setMenuOpen(true)} >
           <FaBars/>
         </div>
         <div styleName="middle">
@@ -35,4 +34,4 @@ const Login = (props) => {
   );
 }
 
-export default CSSModules(Login, styles);
+export default CSSModules(Header, styles);

@@ -15,10 +15,19 @@ const secret = "Shhhhhhhhhh!";
 
 // POST route to register a user
 router.post('/register', function(req, res) {
-  const userinfo = { email, password, username } = req.body;
+  const userinfo = { email, password, username, image } = req.body;
   // TODO: First check if username/email exist already
 
   const user = new User(userinfo);
+
+  // Saving the passed image, this is not a scalable solution (fine for a small app imo)
+  if (image) {
+    const base64Data = image.replace(/^data:image\/png;base64,/, "");
+
+    require("fs").writeFile(`images/${username}.png`, base64Data, 'base64', function(err) {
+      console.log(err);
+    });
+  }
   
   user.save(function(err) {
     if (err) {

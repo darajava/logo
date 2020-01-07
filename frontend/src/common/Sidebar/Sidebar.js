@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.module.css';
 import nophoto from '../../images/nophoto.png';
 
-function Sidebar (props) {
+const Sidebar = (props) => {
   const [closing, setClosing] = useState(false);
   const [user, setUser] = useState(false);
 
@@ -55,7 +55,7 @@ function Sidebar (props) {
 
           <Link to="/profile" onClick={closeMenu} >
             <div styleName="profile-holder">
-              <img styleName='image' ref={img} src={user.image || "Whack"} onError={() => img.current.src = nophoto}></img>
+              <img styleName='image' ref={img} src={`${process.env.REACT_APP_API_URL}/${user.username}.png`} onError={() => img.current.src = nophoto}></img>
               <div styleName="username">
                 &nbsp;{user.username}&nbsp;
               </div>

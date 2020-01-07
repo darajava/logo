@@ -25,52 +25,41 @@ const Register = ({history, location}) => {
 
   const [loading, setLoading] = useState(false);
   
-  // DEBUG
-  const [username, setUsername] = useState('aa');
-  const [email, setEmail] = useState('email@asd.asd');
-  const [password, setPassword] = useState('aaaaaa');
-  const [confirmPassword, setConfirmPassword] = useState('aaaaaa');
+  // Form fields
+  const [username, setUsername] = useState('');
 
-  // const [username, setUsername] = useState('');
-  // const [groupCode, setGroupCode] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [dob, setDob] = useState();
-  // const [instagramLink, setInstagramLink] = useState('');
-  // const [male, setMale] = useState(undefined);
-  // const [password, setPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
-
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const [usernameError, setUsernameError] = useState('');
   const [usernameInfo, setUsernameInfo] = useState('');
   const [usernameWarning, setUsernameWarning] = useState('');
-  const [groupCodeError, setGroupCodeError] = useState('');
+
+  const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailInfo, setEmailInfo] = useState('');
-  const [dobError, setDobError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [imageError, setImageError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [generalError, setGeneralError] = useState('');
 
-  const [termsModalOpen, setTermsModalOpen] = useState(false);
-  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [imageError, setImageError] = useState('');
+  
+  const [generalError, setGeneralError] = useState('');
 
   const [photoModalOpen, setPhotoModalOpen] = useState(false);
   const [photo, setPhoto] = useState('');
+
   const [cropped, setCropped] = useState('');
 
   const submit = () => {
-    setGroupCodeError('');
     setUsernameError('');
     setEmailError('');
-    setDobError('');
     setPasswordError('');
     setConfirmPasswordError('');
 
     let errored = false
     if (!username) {
-      setUsernameError('Please enter username'); errored = true;
+      setUsernameError('Please enter your username'); errored = true;
     }
 
     if (! /(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
@@ -106,36 +95,22 @@ const Register = ({history, location}) => {
       email,
       username,
       password,
+      image: cropped,
     };
 
+    axios.post(`${API_URL}api/register`, json)
+    .then(response => {
+      setTimeout(() => {
+        localStorage.setItem('token', response.data.token);
+        
+        history.push('/');
+      }, 1000);
+    })
+    .catch(error => {
+      setGeneralError('You need to wire up the API (and fix this message)');
 
-    // We need to fetch our cropped data in state 
-    // before submitting so we can set this in the body of the request
-    // fetch(cropped)
-    // .then(res => res.blob())
-    // .then(blob => {
-      alert(API_URL);
-      // const bodyFormData = new FormData();
-
-      // bodyFormData.set('user', JSON.stringify(json));
-      // bodyFormData.append('file', blob);
-
-      // Posting to an endpoint accepting multipart form data
-      // Expecting a response with the auth token so app can continue 
-      axios.post(`${API_URL}api/register`, json)
-      .then(response => {
-        setTimeout(() => {
-          localStorage.setItem('token', response.data);
-          
-          history.push('/');
-        }, 1000);
-      })
-      .catch(error => {
-        setGeneralError('You need to wire up the API');
-
-        setLoading(false);
-      });
-    // });
+      setLoading(false);
+    });
   }
 
   const checkUsername = (name) => {
@@ -154,21 +129,15 @@ const Register = ({history, location}) => {
     }
   };
 
-
-  const minDate = new Date();
-  minDate.setFullYear( minDate.getFullYear() - 80 );
-  const maxDate = new Date();
-  maxDate.setFullYear( maxDate.getFullYear() - 18 );
-  const openToDate = new Date();
-  openToDate.setFullYear( openToDate.getFullYear() - 30 );
-
   return (
     <div styleName="container">
       <Prompt
         when={!loading && !photoModalOpen}
         message="Going back will abandon registration"
       />
+
       <Logo/>
+
       <div>Register</div>
 
       {
@@ -182,7 +151,9 @@ const Register = ({history, location}) => {
         cropped ? (
           <img src={cropped} styleName="cropped" onClick={() => setPhotoModalOpen(true)} />
         ) : (
-          <Button error={imageError} label="Profile Photo" onClick={() => setPhotoModalOpen(true)} />        
+          <Button error={imageError} onClick={() => setPhotoModalOpen(true)}>        
+            Profile Photo
+          </Button>
         )
       }
 
@@ -224,8 +195,9 @@ const Register = ({history, location}) => {
       <Button
         error={generalError}
         onClick={submit}
-        label={<>Sign Up {loading && <Loading />}</>}
-      />
+      >
+        Sign Up {loading && <Loading />}
+      </Button>
 
       <div styleName="hint">
         Already have an account? <a href="/login">Sign in!</a>

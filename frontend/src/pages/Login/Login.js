@@ -100,8 +100,8 @@ const Login = ({history}) => {
         </div>
 
         <div styleName="buttons">
-          <Button onClick={login} label="Sign in"/>
-          <Button secondary onClick={() => history.push('/register')} label="Sign up"/>
+          <Button onClick={login}>Sign In</Button>
+          <Button secondary onClick={() => history.push('/register')}>Sign up</Button>
         </div>
       </div>
     </div>

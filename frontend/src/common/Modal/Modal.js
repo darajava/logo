@@ -4,15 +4,16 @@ import styles from './styles.module.css';
 import { FaTimes } from 'react-icons/fa';
 import { withRouter } from 'react-router-dom';
 
-function Modal(props) {
+const Modal = ({history, location, onClose, title, children}) => {
 
   const [closing, setClosing] = useState(false);
 
-  // Important. On back button press, push current pathname onto history before going
-  // back to cancel it. Then close the modal.
+  // Important! On back button press, push current pathname onto history before going
+  // back to cancel it. Then close the modal. This is done so that the back button works
+  // as expected on android and browser.
   useEffect(() => {
     window.onpopstate = (e) => {
-      props.history.push(props.location.pathname);
+      history.push(location.pathname);
       close();
     }
 
@@ -23,23 +24,23 @@ function Modal(props) {
   }, [])
 
   const close = () => {
-    setTimeout(props.onClose, 170);
+    setTimeout(onClose, 170);
     setClosing(true)
   }
 
   return (
     <div styleName={`modal ${closing ? 'closing' : ''}`} key={closing}>
       <div styleName="header">
-       
+        <div styleName="first"></div>
         <div styleName="middle">
-          {props.title}
+          {title}
         </div>
         <div styleName="last" onClick={close}>
           <FaTimes/>
         </div>
       </div>
       <div styleName="content">
-        {props.children}
+        {children}
       </div>
     </div>
   );

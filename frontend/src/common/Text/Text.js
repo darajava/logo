@@ -3,11 +3,11 @@ import CSSModules from 'react-css-modules';
 
 import styles from './styles.module.css';
 
-const Text = CSSModules(({level, center, children}) => {
+const Text = CSSModules(({level, center, children, bold}) => {
 
   return (
     <div styleName='container'>
-      <div styleName={`${level} ${center ? 'center' : ''}`}>
+      <div styleName={`${bold ? 'bold' : ''} ${level ? level : ''} ${center ? 'center' : ''}`}>
         {children}
       </div>
     </div>

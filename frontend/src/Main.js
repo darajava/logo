@@ -4,7 +4,9 @@ import App from './App';
 
 // This file is to hold the route so we can 
 // put App into a HoC to access location for the header
-function Main() {
+
+// Sound confusing? It is! 
+const Main = () => {
   return (
     <Router>
       <App />

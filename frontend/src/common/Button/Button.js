@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './styles.module.css';
 
-function Button(props) {
+const Button = ({secondary, type, onClick, children, error}) => {
 
   return (
     <div>
       <button
-        styleName={`button ${props.secondary ? 'secondary' : ''}`}
-        type={props.type || "button"}
-        onClick={props.onClick}
+        styleName={`button ${secondary ? 'secondary' : ''}`}
+        type={type || "button"}
+        onClick={onClick}
       >
-        {props.label}
+        {children}
       </button>
-      {props.error && <div styleName="error">{props.error}</div>}
+      {error && <div styleName="error">{error}</div>}
     </div>
   );
 }

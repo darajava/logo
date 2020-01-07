@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './styles.module.css';
 
-function Loading(props) {
+const Loading = ({tiny, secondary, noDelay}) => {
       
-  const content = <div styleName={`spinner ${props.tiny ? 'tiny' : ''} ${props.secondary ? 'secondary' : ''}`}></div>
+  const content = <div styleName={`spinner ${tiny ? 'tiny' : ''} ${secondary ? 'secondary' : ''}`}></div>
 
-  const [show, setShow] = useState(props.noDelay);
+  const [show, setShow] = useState(noDelay);
 
   // Don't show the loader immediately in case the operation is < 300ms
   useEffect(() => {
@@ -19,7 +19,7 @@ function Loading(props) {
     return;
   }
 
-  if (props.tiny) {
+  if (tiny) {
     return content;
   }
   return (

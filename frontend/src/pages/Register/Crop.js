@@ -16,11 +16,11 @@ import Modal from '../../common/Modal/Modal';
 
 let usernameTimeout, emailTimeout;
 
-const Crop = (props) => {
+const Crop = ({photo, setCropped, setPhoto, close}) => {
 
   const cropper = useRef(null);
   const fileEl = useRef(null);
-  const [image, setImage] = useState(props.photo);
+  const [image, setImage] = useState(photo);
   const [file, setFile] = useState('');
 
   const handleFileChosen = (file) => {
@@ -52,14 +52,16 @@ const Crop = (props) => {
     // setCropped(cropper.current.getCroppedCanvas().toDataURL());
   }
 
-  const close = () => {
-    props.setPhoto(image)
-    props.setCropped(cropper.current.getCroppedCanvas().toDataURL());
-    props.close();
+  const closeCropper = () => {
+    if (image) {
+      setPhoto(image)
+      setCropped(cropper.current.getCroppedCanvas().toDataURL());
+    }
+    close();
   }
 
   return (
-    <Modal onClose={props.close} title="Set Profile Photo">
+    <Modal onClose={closeCropper} title="Set Profile Photo">
       <div styleName="crop-container">
         {image && <Cropper
           ref={cropper}
@@ -77,12 +79,16 @@ const Crop = (props) => {
 
         {image && (
           <div styleName="button-container">
-            <Button label="Save photo!" onClick={close}/>
+            <Button onClick={closeCropper}>
+              Save!
+            </Button>
           </div>
         )}
         
         <div styleName="button-container">
-          <Button secondary label="Choose New Photo" onClick={() => fileEl.current.click()}/>
+          <Button secondary onClick={() => fileEl.current.click()}>
+            Choose profile photo
+          </Button>
         </div>
 
         <input

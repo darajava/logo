@@ -9,7 +9,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(  0  ,   0  ,   0  , 0.6);
-  animation: fade-in 0.3s;
+  animation: 0, 0, 0e-in 0.3s;
 }
 
 .closed.background {
@@ -115,18 +115,18 @@
 
 @keyframes fade-out {
   from {
-    background-color: rgba(  0  ,   0  ,   0  , 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
   }
   to {
-    background-color: rgba(  0  ,   0  ,   0  , 0);
+    background-color: rgba(0, 0, 0, 0);
   }
 }
 
 @keyframes fade-in {
   from {
-    background-color: rgba(  0  ,   0  ,   0  , 0);
+    background-color: rgba(0, 0, 0, 0);
   }
   to {
-    background-color: rgba(  0  ,   0  ,   0  , 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
   }
 }

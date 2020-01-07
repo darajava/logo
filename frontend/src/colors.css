@@ -1,12 +1,10 @@
 :root {
-  --main: #41abf6;
-  --secondary: #c1e6ff;
+  --main: #002eff;
+  --secondary: #62c0ff;
   --error: #ff3333;
-  --light: #f9fcff;
+  --light: #f1f4ff;
   --success: green;
   --warning: orange;
   --text: #333;
-  --input-background: rgb(235, 240, 255);
-
-  --header-height: 30px;
+  --input-background: #c6d5ff;
 }

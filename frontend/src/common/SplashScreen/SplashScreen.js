@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.module.css';
 import Logo from '../Logo/Logo';
 
-function SplashScreen ({close}) {
+const SplashScreen = ({close}) => {
 
   useEffect(() => {
     setTimeout(close, 1700);

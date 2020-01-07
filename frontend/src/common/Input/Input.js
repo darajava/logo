@@ -4,27 +4,27 @@ import styles from './styles.module.css';
 
 import { ErrorText, InfoText, WarningText } from '../Text/Text';
 
-function Input(props) {
+const Input = ({error, warning, info, onChange, dark, ...rest}) => {
   const input = useRef();
 
   // When there is an error, scroll the errored element (this) into view 
   useEffect(() => {
-    if (props.error) {
+    if (error) {
       input.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [props.error]);
+  }, [error]);
 
   return (
     <div>
       <input
         ref={input}
-        {...props}
-        onChange={(e) => props.onChange(e.target.value)}
-        styleName={`input ${props.dark ? 'dark' : ''} ${props.error ? 'error-field' : ''}`}
+        {...rest}
+        onChange={(e) => onChange(e.target.value)}
+        styleName={`input ${dark ? 'dark' : ''} ${error ? 'error-field' : ''}`}
       />
-      <ErrorText>{props.error}</ErrorText>
-      <WarningText>{props.warning}</WarningText>
-      <InfoText>{props.info}</InfoText>
+      <ErrorText>{error}</ErrorText>
+      <WarningText>{warning}</WarningText>
+      <InfoText>{info}</InfoText>
     </div>
   );
 }

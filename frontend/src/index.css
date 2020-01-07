@@ -15,10 +15,9 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Consolas, "Courier New",
     monospace;
 }
-
 
 * {
   box-sizing: border-box;
@@ -36,7 +35,9 @@ a {
   /*top: 58px;*/
 }
 
-.debug {width: 100%; word-break: break-all;
+.debug {
+  width: 100%;
+  word-break: break-all;
   font-family: courier;
   white-space: pre-wrap;
 }

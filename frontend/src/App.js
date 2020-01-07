@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+
 // We need HashRouter for the router to work in app form with Cordova.
 // Change this to BrowserRouter if you need web only.
 import {HashRouter as Router, Route, withRouter} from "react-router-dom";
@@ -13,25 +14,23 @@ import Header from './common/Header/Header';
 import Sidebar from './common/Sidebar/Sidebar';
 import SplashScreen from './common/SplashScreen/SplashScreen';
 
-import styles from './styles.module.css';
-
-function App(props) {
+const App = ({location}) => {
   const [error, setError]  = useState();
   const [splashScreenOpen, setSplashScreenOpen]  = useState(true);
 
   // Scroll to top on new page
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [props.location.pathname]);
+  }, [location.pathname]);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="main">
       {/* Remove to disable splash screen */}
-      {!splashScreenOpen && <SplashScreen close={() => {setSplashScreenOpen(false)}} />}
+      {splashScreenOpen && <SplashScreen close={() => {setSplashScreenOpen(false)}} />}
 
-      <Header route={props.location.pathname} setMenuOpen={setMenuOpen} />
+      <Header route={location.pathname} setMenuOpen={setMenuOpen} />
 
       <div className="content">
         <Sidebar open={menuOpen} setMenuOpen={setMenuOpen} />

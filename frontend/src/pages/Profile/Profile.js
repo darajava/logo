@@ -10,9 +10,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.module.css';
 import Loading from '../../common/Loading/Loading';
 
-function Profile ({match}) {
-
-  console.log(nophoto)
+const Profile = ({match}) => {
 
   useEffect(() => {
     setLoading(true);
@@ -26,7 +24,7 @@ function Profile ({match}) {
     }
     
     instance().get(`/api/profile/${username}`).then((res) => {
-      setCompetitor(res.data);
+      setUser(res.data);
       setLoading(false);
     }).catch(() => {
       setLoading(false);
@@ -34,8 +32,8 @@ function Profile ({match}) {
     })
   }, [match.params.username]);
 
-  const [competitor, setCompetitor] = useState();
-  const [competitorStats, setCompetitorStats] = useState();
+  const [user, setUser] = useState();
+  const [UserStats, setUserStats] = useState();
   const [workouts, setWorkouts] = useState();
 
   const [loading, setLoading] = useState(true);
@@ -43,28 +41,34 @@ function Profile ({match}) {
 
   const img = useRef();
 
-  console.log(competitorStats)
+  console.log(UserStats)
 
   if (error) {
     return <div styleName="error">{error}</div>;
   }
 
-  if (loading || !competitor) {
+  if (loading || !user) {
     return <Loading />;
   }
 
   return (
     <div styleName="container">
       <div styleName='header'>
-        <img styleName='image' ref={img} src={competitor.image || "whack"} onError={() => img.current.src = nophoto}></img>
+        <img
+          styleName='image'
+          ref={img} src={`${process.env.REACT_APP_API_URL}/${user.username}.png`}
+          onError={() => img.current.src = nophoto}
+        ></img>
         <div styleName='user-info'>
           <div styleName="username">
-            {competitor.username}
+            {user.username}
+          </div>
+          <div styleName="username">
+            {user.email}
           </div>
         </div>
       </div>
-
-
+        This is a very bare bones user profile
     </div>
   );
 }
